@@ -11,8 +11,19 @@ config_version=5
 [application]
 
 config/name="Bending-Battles"
+run/main_scene="res://scenes/networking/Menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://scenes/networking/GameManager.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/scale=1.5
 
 [editor]
 
