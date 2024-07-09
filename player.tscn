@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cebmnbxnu4tok"]
+[gd_scene load_steps=11 format=3 uid="uid://cebmnbxnu4tok"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_e8j7p"]
+[ext_resource type="PackedScene" uid="uid://f6iqm321wuxq" path="res://view_model.tscn" id="2_6lhlt"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rtlq5"]
 radius = 0.4
@@ -155,9 +156,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 [node name="head" type="Node3D" parent="neck"]
 
 [node name="eyes" type="Node3D" parent="neck/head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505985, 2.64232)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.129131, 0)
 
 [node name="Camera3D" type="Camera3D" parent="neck/head/eyes"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="neck/head/eyes/Camera3D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="neck/head/eyes/Camera3D/SubViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="view_model_camera" parent="neck/head/eyes/Camera3D/SubViewportContainer/SubViewport" instance=ExtResource("2_6lhlt")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="neck/head/eyes"]
 libraries = {
