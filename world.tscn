@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://ba8tfhcgy852q"]
+
+[ext_resource type="PackedScene" uid="uid://cebmnbxnu4tok" path="res://Player/player.tscn" id="1_qmr8c"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_acwyj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cft6w"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7k2t5"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_upihp"]
+
+[sub_resource type="Sky" id="Sky_scair"]
+sky_material = SubResource("ProceduralSkyMaterial_upihp")
+
+[sub_resource type="Environment" id="Environment_41pan"]
+background_mode = 2
+sky = SubResource("Sky_scair")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rtlq5"]
+radius = 0.4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3gli1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rlymy"]
+height = 1.2
+
+[node name="World" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.622515, -0.559152, 0.547562, 0, 0.699663, 0.714473, -0.782608, 0.44477, -0.435551, 0.516756, 0, 0)
+shadow_enabled = true
+
+[node name="GROUND" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_acwyj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GROUND"]
+shape = SubResource("BoxShape3D_cft6w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GROUND"]
+mesh = SubResource("BoxMesh_7k2t5")
+
+[node name="player" parent="." instance=ExtResource("1_qmr8c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40925, 1, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_41pan")
+
+[node name="IDLE player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IDLE player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_rtlq5")
+
+[node name="standing_CollisionShape3D" type="CollisionShape3D" parent="IDLE player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_3gli1")
+disabled = true
+
+[node name="crouching_CollisionShape3D2" type="CollisionShape3D" parent="IDLE player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.860236, 0)
+shape = SubResource("CapsuleShape3D_rlymy")
+
+[node name="RayCast3D" type="RayCast3D" parent="IDLE player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.100762, 0)
+target_position = Vector3(0, 2, 0)
+
+[node name="Camera3D" type="Camera3D" parent="IDLE player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.63049, 0)
