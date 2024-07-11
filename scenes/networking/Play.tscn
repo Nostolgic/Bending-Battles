@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://csdpdt5qvcusn"]
+
+[ext_resource type="Script" path="res://scenes/networking/SceneManager.gd" id="1_2ibne"]
+[ext_resource type="PackedScene" uid="uid://d3atdg5g1or5q" path="res://scenes/networking/TestPlayer.tscn" id="2_71ydf"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_r3tkj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1i536"]
+
+[node name="Play" type="Node3D"]
+script = ExtResource("1_2ibne")
+PlayerScene = ExtResource("2_71ydf")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.65254, 0, 0, 0, 1, 0, 0, 0, 1.83616, 0, 0, 0)
+mesh = SubResource("PlaneMesh_r3tkj")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, -6.3554e-16, 1.98557e-16, 1.98557e-16, 0.569279, 0.822144, -6.3554e-16, -0.822144, 0.569279, 2.08165e-12, 2.529, 2.152)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42313, 0)
+
+[node name="Cubes" type="Node" parent="."]
+
+[node name="Cube1" type="MeshInstance3D" parent="Cubes"]
+transform = Transform3D(0.53256, 0, 0, 0, 0.53256, 0, 0, 0, 0.53256, 0.753335, 0, -1.03559)
+mesh = SubResource("BoxMesh_1i536")
+skeleton = NodePath("../..")
+
+[node name="Cube2" type="MeshInstance3D" parent="Cubes"]
+transform = Transform3D(0.53256, 0, 0, 0, 0.53256, 0, 0, 0, 0.53256, -0.740358, 0, -0.115908)
+mesh = SubResource("BoxMesh_1i536")
+skeleton = NodePath("../..")
+
+[node name="Cube3" type="MeshInstance3D" parent="Cubes"]
+transform = Transform3D(0.53256, 0, 0, 0, 0.53256, 0, 0, 0, 0.53256, 1.18553, 0, 1.07808)
+mesh = SubResource("BoxMesh_1i536")
+skeleton = NodePath("../..")
+
+[node name="Spawns" type="Node" parent="."]
+
+[node name="0" type="Node3D" parent="Spawns" groups=["PlayerSpawnPoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.270268, -0.813305)
+
+[node name="1" type="Node3D" parent="Spawns" groups=["PlayerSpawnPoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.270268, 1.09376)

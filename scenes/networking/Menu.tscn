@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1k522vp2o0x8"]
+
+[ext_resource type="Script" path="res://scenes/networking/MultiplayerController.gd" id="1_22y0r"]
+[ext_resource type="PackedScene" uid="uid://csdpdt5qvcusn" path="res://scenes/networking/Play.tscn" id="2_4f5dd"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_22y0r")
+play_scene = ExtResource("2_4f5dd")
+
+[node name="Join" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.551215
+anchor_top = 0.302469
+anchor_right = 0.631076
+anchor_bottom = 0.390432
+offset_left = 1.14441e-05
+grow_horizontal = 2
+grow_vertical = 2
+text = "Join"
+metadata/_edit_use_anchors_ = true
+
+[node name="Host" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.416667
+anchor_top = 0.419753
+anchor_right = 0.631076
+anchor_bottom = 0.507716
+offset_left = 1.14441e-05
+offset_bottom = 1.57356e-05
+grow_horizontal = 2
+grow_vertical = 2
+text = "Host"
+metadata/_edit_use_anchors_ = true
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.416667
+anchor_top = 0.54321
+anchor_right = 0.631076
+anchor_bottom = 0.631173
+offset_left = 1.14441e-05
+offset_top = -1.38283e-05
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start"
+metadata/_edit_use_anchors_ = true
+
+[node name="TargetIP" type="LineEdit" parent="."]
+layout_mode = 0
+anchor_left = 0.418403
+anchor_top = 0.300926
+anchor_right = 0.544271
+anchor_bottom = 0.390432
+offset_left = -1.52588e-05
+offset_right = 2.28882e-05
+text = "127.0.0.1"
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
+[connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="Start" to="." method="_on_start_button_down"]
