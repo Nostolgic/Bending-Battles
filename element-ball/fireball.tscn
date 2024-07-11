@@ -1,0 +1,86 @@
+[gd_scene load_steps=14 format=3 uid="uid://c7lensienfuod"]
+
+[ext_resource type="Shader" uid="uid://cqa63v8qrh8et" path="res://shaders/panshader.tres" id="1_0rjmc"]
+[ext_resource type="Texture2D" uid="uid://86my103b08m7" path="res://element-ball/voronoi1.png" id="2_lf4k2"]
+[ext_resource type="Texture2D" uid="uid://sitohkp3tyk5" path="res://element-ball/FireBallFlare1.png" id="3_5afg5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h1nvk"]
+render_priority = 0
+shader = ExtResource("1_0rjmc")
+shader_parameter/maintexspeed = Vector2(0.5, 0.5)
+shader_parameter/maintexPower = 4.0
+shader_parameter/Maintex = ExtResource("2_lf4k2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mne5v"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.7
+scale_max = 0.7
+color = Color(5, 2, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_yctxs"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3lkc0"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_5afg5")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_bbhxj"]
+offsets = PackedFloat32Array(0, 0.218341, 0.331878, 0.532751, 0.733624, 0.868996, 0.938865, 1)
+colors = PackedColorArray(0.976471, 0, 0, 1, 0.981582, 0.0716903, 0.0716903, 1, 0.983422, 0.0974988, 0.0974988, 1, 0.988943, 0.174924, 0.174924, 1, 0.993646, 0.24088, 0.24088, 1, 0.996815, 0.285327, 0.285327, 1, 0.998514, 0.309153, 0.309153, 1, 1, 0.33, 0.33, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jmqoe"]
+gradient = SubResource("Gradient_bbhxj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2173x"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.85
+scale_max = 0.85
+color = Color(0.384314, 0.0980392, 0.0313726, 0.713726)
+color_ramp = SubResource("GradientTexture1D_jmqoe")
+
+[sub_resource type="QuadMesh" id="QuadMesh_w2aqa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4kv46"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="GDScript" id="GDScript_3saa8"]
+
+[node name="Fireball" type="Node3D"]
+transform = Transform3D(0.790399, 0, -5.96046e-08, 0, 0.790399, 0, 5.96046e-08, 0, 0.790399, 0.960127, -0.376414, -3.95222)
+
+[node name="Sphere" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 1.49012e-08, 0, 1, 0, -1.49012e-08, 0, 1, 0, 0, 0)
+layers = 2
+material_override = SubResource("ShaderMaterial_h1nvk")
+amount = 1
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_mne5v")
+draw_pass_1 = SubResource("SphereMesh_yctxs")
+
+[node name="Flare" type="GPUParticles3D" parent="."]
+layers = 2
+sorting_offset = -1.0
+material_override = SubResource("StandardMaterial3D_3lkc0")
+amount = 1
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_2173x")
+draw_pass_1 = SubResource("QuadMesh_w2aqa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+layers = 2
+material_override = SubResource("StandardMaterial3D_4kv46")
+gi_mode = 2
+skeleton = NodePath("../..")
+script = SubResource("GDScript_3saa8")
