@@ -20,6 +20,9 @@ var current_speed = 5.0
 @onready var camera_3d = $neck/head/eyes/Camera3D
 @onready var animation_player = $neck/head/eyes/AnimationPlayer
 
+
+@onready var view_model_camera = $neck/head/eyes/Camera3D/SubViewportContainer/SubViewport/view_model_camera
+
 #States
 
 var walking = false
@@ -100,7 +103,8 @@ func _input(event):
 			rotate_y(deg_to_rad(-event.relative.x * mouse_sens))
 		head.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
 		head.rotation.x = clamp(head.rotation.x,deg_to_rad(-89),deg_to_rad(89))
-
+		view_model_camera.sway(Vector2(event.relative.x,event.relative.y))
+		
 func _physics_process(delta):
 	
 	#updating the viewport
